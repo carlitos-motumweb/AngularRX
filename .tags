@@ -1,0 +1,19 @@
+form	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^<form novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">$/;"	function	line:1
+label	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^     <label>$/;"	function	line:2
+span	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^       <span>Full name<\/span>$/;"	function	line:3
+input	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^       <input type="text" placeholder="Your full name" formControlName="name">$/;"	function	line:4
+div	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^     <div class="error" *ngIf="user.get('name').touched && user.get('name').hasError('required')">$/;"	function	line:6
+div	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^     <div class="error" *ngIf="user.get('name').touched && user.get('name').hasError('minlength')">$/;"	function	line:9
+div	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^     <div formGroupName="account">$/;"	function	line:12
+label	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^       <label>$/;"	function	line:13
+span	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^         <span>Email address<\/span>$/;"	function	line:14
+input	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^         <input type="email" placeholder="Your email address" formControlName="email">$/;"	function	line:15
+label	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^       <label>$/;"	function	line:22
+span	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^         <span>Confirm address<\/span>$/;"	function	line:23
+input	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^         <input type="email" placeholder="Confirm your email address" formControlName="confirm">$/;"	function	line:24
+button	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^     <button type="submit" [disabled]="user.invalid">Sign up<\/button>$/;"	function	line:32
+hr	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^   <hr\/>$/;"	function	line:34
+button	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^   <button (click)="incrementar()">+<\/button>$/;"	function	line:35
+div	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^   <div>Contador: {{counter | async}}<\/div>$/;"	function	line:36
+button	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^   <button (click)="decrementar()">-<\/button>$/;"	function	line:37
+button	/home/carlitos/Documentos/cursos_PLATZI/ProyectosAngular/AngularRXJS/src/app/app.component.html	/^   <button (click)="resetear()">0<\/button>$/;"	function	line:38
