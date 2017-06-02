@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from './signup.interface';
 import {Store} from '@ngrx/store';
@@ -18,7 +18,8 @@ export class AppComponent implements OnInit {
 
   constructor(
         private fb: FormBuilder,
-        private store: Store<number> ) {
+        private store: Store<number>,
+        private zonaEspecial: NgZone) {
             this.miContador = store.select('contadorSTORE');
         }
 
@@ -46,4 +47,34 @@ export class AppComponent implements OnInit {
   resetear(){
       this.store.dispatch({type:RESETEAR_ACTION});
   }
+
+
+
+  progreso: number = 0;
+  etiquetaProgreso:string;
+
+  progresoDentroDeNGZone(){
+      this.etiquetaProgreso = 'ejecutando DENTRO de NGZone';
+      this.progreso = 0;
+      this.incrementarProgreso(()=>{});
+  }
+
+  incrementarProgreso(doneCallBack:()=>void){
+      this.progreso +=1;
+      console.log("Progreso: " , this.progreso);
+      if (this.progreso < 100) {
+          window.setTimeout(()=>{this.incrementarProgreso(doneCallBack)},20);
+      } else {
+          this.etiquetaProgreso = 'Ejecución dentro de NGZone concluida';
+          console.log(this.etiquetaProgreso);
+          return;
+      }
+  }
+
+  progresoFueraDeNGZone(){
+      this.etiquetaProgreso = 'ejecutando FUERA de NGZone';
+      this.progreso = 0;
+      this.zonaEspecial.runOutsideAngular(() => {this.incrementarProgreso(() => {this.zonaEspecial.run(()=>{this.etiquetaProgreso = 'Ejecución fuera de NGZone concluida';})})});
+  }
+
 }

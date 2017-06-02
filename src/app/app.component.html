@@ -36,3 +36,8 @@
    <div>Contador: {{miContador | async}}</div>
    <button (click)="decrementar()">-</button>
    <button (click)="resetear()">0</button>
+   <hr/>
+   <p>Progreso: {{progreso}}</p>
+   <p>Detalle: {{etiquetaProgreso}}</p>
+   <button (click)="progresoDentroDeNGZone()">Dentro de NGZone</button>
+   <button (click)="progresoFueraDeNGZone()">Fuera de NGZone</button>
