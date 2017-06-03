@@ -4,23 +4,28 @@ import { User } from './signup.interface';
 import {Store} from '@ngrx/store';
 import {INCREMENTAR_ACTION, DECREMENTAR_ACTION, RESETEAR_ACTION} from './services/counter';
 import {Observable} from 'rxjs/Observable';
+import {UsuariosService} from './services/usuarios.service';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-component',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 
 export class AppComponent implements OnInit {
   user: FormGroup;
-
+  listaUsuarios:any;
   miContador: Observable<number>;
 
   constructor(
+      private router: Router,
+      private usService: UsuariosService,
         private fb: FormBuilder,
         private store: Store<number>,
         private zonaEspecial: NgZone) {
             this.miContador = store.select('contadorSTORE');
+            this.listaUsuarios = usService.getUsuarios();
         }
 
   ngOnInit() {
@@ -75,6 +80,10 @@ export class AppComponent implements OnInit {
       this.etiquetaProgreso = 'ejecutando FUERA de NGZone';
       this.progreso = 0;
       this.zonaEspecial.runOutsideAngular(() => {this.incrementarProgreso(() => {this.zonaEspecial.run(()=>{this.etiquetaProgreso = 'Ejecución fuera de NGZone concluida';})})});
+  }
+
+  navegarHaciaDetalleUsuario(id:number):void{
+      this.router.navigate(['/detalle',id]);
   }
 
 }

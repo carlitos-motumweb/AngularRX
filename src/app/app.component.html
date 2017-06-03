@@ -41,3 +41,9 @@
    <p>Detalle: {{etiquetaProgreso}}</p>
    <button (click)="progresoDentroDeNGZone()">Dentro de NGZone</button>
    <button (click)="progresoFueraDeNGZone()">Fuera de NGZone</button>
+   <hr/>
+   <ul>
+       <li *ngFor='let user of listaUsuarios' (click)='navegarHaciaDetalleUsuario(user.id)'>
+           {{user.id}} {{user.nombre}}
+       </li>
+   </ul>
