@@ -15,18 +15,28 @@ import {Router} from '@angular/router';
 
 export class AppComponent implements OnInit {
   user: FormGroup;
-  listaUsuarios:any;
+  listaUsuarios: any;
   miContador: Observable<number>;
 
+  listaUsuariosMongo: any;
+  errorServicioMongo: any;
+
   constructor(
-      private router: Router,
-      private usService: UsuariosService,
-        private fb: FormBuilder,
-        private store: Store<number>,
-        private zonaEspecial: NgZone) {
-            this.miContador = store.select('contadorSTORE');
-            this.listaUsuarios = usService.getUsuarios();
-        }
+    private router: Router,
+    private usService: UsuariosService,
+    private fb: FormBuilder,
+    private store: Store<number>,
+    private zonaEspecial: NgZone) {
+    this.miContador = store.select('contadorSTORE');
+    this.listaUsuarios = usService.getUsuarios();
+    this.usService.getUsuariosMongo()
+      .then(
+      usuario => this.listaUsuariosMongo = usuario,
+      error => this.errorServicioMongo = <any>error
+      );
+
+
+  }
 
   ngOnInit() {
     this.user = this.fb.group({
@@ -43,47 +53,55 @@ export class AppComponent implements OnInit {
     console.log(this.user.get('account').value);
   }
 
-  incrementar(){
-      this.store.dispatch({type:INCREMENTAR_ACTION});
+  incrementar() {
+    this.store.dispatch({ type: INCREMENTAR_ACTION });
   }
-  decrementar(){
-      this.store.dispatch({type:DECREMENTAR_ACTION});
+  decrementar() {
+    this.store.dispatch({ type: DECREMENTAR_ACTION });
   }
-  resetear(){
-      this.store.dispatch({type:RESETEAR_ACTION});
+  resetear() {
+    this.store.dispatch({ type: RESETEAR_ACTION });
   }
 
 
 
   progreso: number = 0;
-  etiquetaProgreso:string;
+  etiquetaProgreso: string;
 
-  progresoDentroDeNGZone(){
-      this.etiquetaProgreso = 'ejecutando DENTRO de NGZone';
-      this.progreso = 0;
-      this.incrementarProgreso(()=>{});
+  progresoDentroDeNGZone() {
+    this.etiquetaProgreso = 'ejecutando DENTRO de NGZone';
+    this.progreso = 0;
+    this.incrementarProgreso(() => { });
   }
 
-  incrementarProgreso(doneCallBack:()=>void){
-      this.progreso +=1;
-      console.log("Progreso: " , this.progreso);
-      if (this.progreso < 100) {
-          window.setTimeout(()=>{this.incrementarProgreso(doneCallBack)},20);
-      } else {
-          this.etiquetaProgreso = 'Ejecución dentro de NGZone concluida';
-          console.log(this.etiquetaProgreso);
-          return;
-      }
+  incrementarProgreso(doneCallBack: () => void) {
+    this.progreso += 1;
+    console.log("Progreso: ", this.progreso);
+    if (this.progreso < 100) {
+      window.setTimeout(() => { this.incrementarProgreso(doneCallBack) }, 20);
+    } else {
+      this.etiquetaProgreso = 'Ejecución dentro de NGZone concluida';
+      console.log(this.etiquetaProgreso);
+      return;
+    }
   }
 
-  progresoFueraDeNGZone(){
-      this.etiquetaProgreso = 'ejecutando FUERA de NGZone';
-      this.progreso = 0;
-      this.zonaEspecial.runOutsideAngular(() => {this.incrementarProgreso(() => {this.zonaEspecial.run(()=>{this.etiquetaProgreso = 'Ejecución fuera de NGZone concluida';})})});
+  progresoFueraDeNGZone() {
+    this.etiquetaProgreso = 'ejecutando FUERA de NGZone';
+    this.progreso = 0;
+    this.zonaEspecial.runOutsideAngular(() => { this.incrementarProgreso(() => { this.zonaEspecial.run(() => { this.etiquetaProgreso = 'Ejecución fuera de NGZone concluida'; }) }) });
   }
 
-  navegarHaciaDetalleUsuario(id:number):void{
-      this.router.navigate(['/detalle',id]);
+  navegarHaciaDetalleUsuario(id: number): void {
+    this.router.navigate(['/detalle', id]);
+  }
+
+  verUsuarioMongo(id: number): void {
+    this.router.navigate(['detalle', id]);
+  }
+
+  updateUsuarioMongo(id: number): void {
+    this.router.navigate(['update', id]);
   }
 
 }

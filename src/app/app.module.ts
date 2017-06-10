@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/http';
 import { InitComponent } from './init/init.component';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './pageNotFound/pageNotFound.component';
+import { UpdateComponent } from './update/update.component';
 
 
 import {StoreModule} from '@ngrx/store';
@@ -22,7 +23,8 @@ import {UsuariosService} from './services/usuarios.service';
     InitComponent,
     AppComponent,
     PageNotFoundComponent,
-    DetalleComponent
+    DetalleComponent,
+    UpdateComponent
   ],
   imports: [
     BrowserModule,

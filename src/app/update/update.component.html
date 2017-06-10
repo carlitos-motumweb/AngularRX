@@ -1,0 +1,13 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
+    <div>
+        <label >
+            Nombre
+        </label>
+        <input type="text" id="usuarioNombreInput" placeholder="Nombre" name="nombre" [formControl]="myForm.controls['nombre']">
+        <label >
+            Apellidos
+        </label>
+        <input type="text" id="usuarioApellidosInput" placeholder="Apellidos" name="apellidos" [formControl]="myForm.controls['apellidos']">
+    </div>
+    <button type="submit">Actualizar</button>
+</form>

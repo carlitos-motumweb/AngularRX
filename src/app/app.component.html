@@ -42,8 +42,26 @@
    <button (click)="progresoDentroDeNGZone()">Dentro de NGZone</button>
    <button (click)="progresoFueraDeNGZone()">Fuera de NGZone</button>
    <hr/>
+   <h1>Lista de usuarios desde MONGO</h1>
+   <ul>
+       <li *ngFor='let userMongo of listaUsuariosMongo'>
+           {{userMongo.id}} {{userMongo.nombre}} {{userMongo.apellidos}}
+           <button (click)="verUsuarioMongo(userMongo.id)">Ver</button>
+           <button (click)="updateUsuarioMongo(userMongo.id)">Actualizar</button>
+       </li>
+   </ul>
+   <hr/>
+   <h1>Lista de usuarios desde service</h1>
    <ul>
        <li *ngFor='let user of listaUsuarios' (click)='navegarHaciaDetalleUsuario(user.id)'>
            {{user.id}} {{user.nombre}}
+       </li>
+   </ul>
+
+   <hr/>
+   <h1>Lista de Fases</h1>
+   <ul>
+       <li *ngFor='let fase of listaFases' >
+           {{fase.id}} {{fase.fase}}
        </li>
    </ul>
