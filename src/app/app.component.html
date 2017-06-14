@@ -1,67 +1,105 @@
 <form novalidate (ngSubmit)="onSubmit(user)" [formGroup]="user">
-     <label>
+  <label>
        <span>Full name</span>
        <input type="text" placeholder="Your full name" formControlName="name">
      </label>
-     <div class="error" *ngIf="user.get('name').touched && user.get('name').hasError('required')">
-       Name is required
-     </div>
-     <div class="error" *ngIf="user.get('name').touched && user.get('name').hasError('minlength')">
-       Minimum of 2 characters
-     </div>
-     <div formGroupName="account">
-       <label>
+  <div class="error" *ngIf="user.get('name').touched && user.get('name').hasError('required')">
+    Name is required
+  </div>
+  <div class="error" *ngIf="user.get('name').touched && user.get('name').hasError('minlength')">
+    Minimum of 2 characters
+  </div>
+  <div formGroupName="account">
+    <label>
          <span>Email address</span>
          <input type="email" placeholder="Your email address" formControlName="email">
        </label>
-       <div
-         class="error"
-         *ngIf="user.get('account').get('email').touched && user.get('account').get('email').hasError('required')">
-         Email is required
-       </div>
-       <label>
+    <div class="error" *ngIf="user.get('account').get('email').touched && user.get('account').get('email').hasError('required')">
+      Email is required
+    </div>
+    <label>
          <span>Confirm address</span>
          <input type="email" placeholder="Confirm your email address" formControlName="confirm">
        </label>
-       <div
-         class="error"
-         *ngIf="user.get('account').get('confirm').touched && user.get('account').get('confirm').hasError('required')">
-         Confirming email is required
-       </div>
-     </div>
-     <button type="submit" [disabled]="user.invalid">Sign up</button>
-   </form>
-   <hr/>
-   <button (click)="incrementar()">+</button>
-   <div>Contador: {{miContador | async}}</div>
-   <button (click)="decrementar()">-</button>
-   <button (click)="resetear()">0</button>
-   <hr/>
-   <p>Progreso: {{progreso}}</p>
-   <p>Detalle: {{etiquetaProgreso}}</p>
-   <button (click)="progresoDentroDeNGZone()">Dentro de NGZone</button>
-   <button (click)="progresoFueraDeNGZone()">Fuera de NGZone</button>
-   <hr/>
-   <h1>Lista de usuarios desde MONGO</h1>
-   <ul>
-       <li *ngFor='let userMongo of listaUsuariosMongo'>
-           {{userMongo.id}} {{userMongo.nombre}} {{userMongo.apellidos}}
-           <button (click)="verUsuarioMongo(userMongo.id)">Ver</button>
-           <button (click)="updateUsuarioMongo(userMongo.id)">Actualizar</button>
-       </li>
-   </ul>
-   <hr/>
-   <h1>Lista de usuarios desde service</h1>
-   <ul>
-       <li *ngFor='let user of listaUsuarios' (click)='navegarHaciaDetalleUsuario(user.id)'>
-           {{user.id}} {{user.nombre}}
-       </li>
-   </ul>
+    <div class="error" *ngIf="user.get('account').get('confirm').touched && user.get('account').get('confirm').hasError('required')">
+      Confirming email is required
+    </div>
+  </div>
+  <button type="submit" [disabled]="user.invalid">Sign up</button>
+</form>
+<hr/>
+<button pButton type="button" label="+" icon="fa-check" iconPos="right" (click)="incrementar()"></button>
+<div>Contador: {{miContador | async}}</div>
+<button pButton type="button" label="-" (click)="decrementar()"></button>
+<button pButton type="button" label="0" (click)="resetear()"></button>
+<hr/>
+<p>Progreso: {{progreso}}</p>
+<p>Detalle: {{etiquetaProgreso}}</p>
+<button (click)="progresoDentroDeNGZone()">Dentro de NGZone</button>
+<button (click)="progresoFueraDeNGZone()">Fuera de NGZone</button>
+<hr/>
+<h1>Lista de usuarios desde MONGO</h1>
+<ul>
+  <li *ngFor='let userMongo of listaUsuariosMongo'>
+    {{userMongo.id}} {{userMongo.nombre}} {{userMongo.apellidos}}
+    <button md-mini-fab (click)="verUsuarioMongo(userMongo.id)"><md-icon>arrow_forward</md-icon></button>
+    <button md-mini-fab (click)="updateUsuarioMongo(userMongo.id)"><md-icon>update</md-icon></button>
+    <button md-mini-fab (click)="removerUsuarioMongo(userMongo.id)"><md-icon>delete</md-icon></button>
+  </li>
+</ul>
+<hr/>
+<h1>Lista de usuarios desde MONGO - Material</h1>
+<div class="container">
+  <div class="row">
+    <div *ngFor='let userMongo of listaUsuariosMongo'>
+      <div class="col">
+        <md-card class="example-card">
+          <md-card-header>
+            <div md-card-avatar class="example-header-image"></div>
+            <md-card-title> {{userMongo.nombre}} </md-card-title>
+            <md-card-subtitle>{{userMongo.apellidos}}</md-card-subtitle>
+          </md-card-header>
+          <img md-card-image src="assets/img/shiba1.jpg">
+          <md-card-content>
+            <p>
+              The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.
+            </p>
+          </md-card-content>
+          <md-card-actions>
+            <button md-mini-fab (click)="verUsuarioMongo(userMongo.id)"><md-icon>arrow_forward</md-icon></button>
+            <button md-mini-fab (click)="updateUsuarioMongo(userMongo.id)"><md-icon>update</md-icon></button>
+            <button md-mini-fab (click)="removerUsuarioMongo(userMongo.id)"><md-icon>delete</md-icon></button>
+          </md-card-actions>
+        </md-card>
+      </div>
+    </div>
+  </div>
+</div>
 
-   <hr/>
-   <h1>Lista de Fases</h1>
-   <ul>
-       <li *ngFor='let fase of listaFases' >
-           {{fase.id}} {{fase.fase}}
-       </li>
-   </ul>
+
+
+
+<hr/>
+<h1>Lista de usuarios desde service</h1>
+<ul>
+  <li *ngFor='let user of listaUsuarios' (click)='navegarHaciaDetalleUsuario(user.id)'>
+    {{user.id}} {{user.nombre}}
+  </li>
+</ul>
+
+<hr/>
+<h1>Lista de Fases</h1>
+<ul>
+  <li *ngFor='let fase of listaFases'>
+    {{fase.id}} {{fase.fase}}
+  </li>
+</ul>
+
+<hr/>
+<h3 class="first">Basic</h3>
+<p-dataTable [value]="listaAutos">
+    <p-column field="numSerie" header="No. Serie"></p-column>
+    <p-column field="year" header="Year"></p-column>
+    <p-column field="brand" header="Brand"></p-column>
+    <p-column field="color" header="Color"></p-column>
+</p-dataTable>

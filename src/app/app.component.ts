@@ -6,6 +6,7 @@ import {INCREMENTAR_ACTION, DECREMENTAR_ACTION, RESETEAR_ACTION} from './service
 import {Observable} from 'rxjs/Observable';
 import {UsuariosService} from './services/usuarios.service';
 import {Router} from '@angular/router';
+import {Car} from './model/auto';
 
 @Component({
   selector: 'app-component',
@@ -14,6 +15,7 @@ import {Router} from '@angular/router';
 })
 
 export class AppComponent implements OnInit {
+  listaAutos: Car[];
   user: FormGroup;
   listaUsuarios: any;
   miContador: Observable<number>;
@@ -29,16 +31,11 @@ export class AppComponent implements OnInit {
     private zonaEspecial: NgZone) {
     this.miContador = store.select('contadorSTORE');
     this.listaUsuarios = usService.getUsuarios();
-    this.usService.getUsuariosMongo()
-      .then(
-      usuario => this.listaUsuariosMongo = usuario,
-      error => this.errorServicioMongo = <any>error
-      );
-
-
+    this.obtenerUsuariosMongo();
   }
 
   ngOnInit() {
+    //this.listaAutos.push({'numSerie':'abc','year':'1977','brand':'vw','color':'azul'});
     this.user = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       account: this.fb.group({
@@ -102,6 +99,28 @@ export class AppComponent implements OnInit {
 
   updateUsuarioMongo(id: number): void {
     this.router.navigate(['update', id]);
+  }
+
+  removerUsuarioMongo(id): void {
+    this.usService.removeUsuarioMongo(id).then(
+      ok => this.checking(ok),
+      error => console.log(<any>error)
+    );
+  }
+
+  checking(ok: any) {
+    if (ok.n == 1) {
+      alert("El usuario se ha eliminado correctamente");
+    }
+    this.obtenerUsuariosMongo();
+  }
+
+  obtenerUsuariosMongo(): void {
+    this.usService.getUsuariosMongo()
+      .then(
+      usuario => this.listaUsuariosMongo = usuario,
+      error => this.errorServicioMongo = <any>error
+      );
   }
 
 }

@@ -31,6 +31,13 @@ export class UsuariosService {
         "apellidos":apellidos
     }).toPromise().then(this.extractData).catch(this.handlerError);
 }
+
+removeUsuarioMongo(id:number):Promise<any>{
+  return this.http.post(this.urlBackend + 'usuarioDelete',{
+      "id":id
+  }).toPromise().then(this.extractData).catch(this.handlerError);
+}
+
   getUsuarios() {
     return Usuarios;
   }

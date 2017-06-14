@@ -18,6 +18,14 @@ import {ROUTER_PRINCIPAL} from './commons/router';
 import { DetalleComponent } from './detalle/detalle.component';
 
 import {UsuariosService} from './services/usuarios.service';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MaterialModule} from '@angular/material';
+import 'hammerjs';
+
+import {ButtonModule} from 'primeng/primeng';
+import {DataTableModule,SharedModule} from 'primeng/primeng';
+
 @NgModule({
   declarations: [
     InitComponent,
@@ -28,11 +36,16 @@ import {UsuariosService} from './services/usuarios.service';
   ],
   imports: [
     BrowserModule,
+    ButtonModule,
+    DataTableModule,
+    SharedModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
     StoreModule.provideStore({contadorSTORE:ContadorAcciones}),
-    RouterModule.forRoot(ROUTER_PRINCIPAL)
+    RouterModule.forRoot(ROUTER_PRINCIPAL),
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [UsuariosService],
   bootstrap: [InitComponent]
