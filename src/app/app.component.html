@@ -88,18 +88,51 @@
 </ul>
 
 <hr/>
-<h1>Lista de Fases</h1>
-<ul>
-  <li *ngFor='let fase of listaFases'>
-    {{fase.id}} {{fase.fase}}
-  </li>
-</ul>
-
-<hr/>
 <h3 class="first">Basic</h3>
 <p-dataTable [value]="listaAutos">
-    <p-column field="numSerie" header="No. Serie"></p-column>
-    <p-column field="year" header="Year"></p-column>
-    <p-column field="brand" header="Brand"></p-column>
-    <p-column field="color" header="Color"></p-column>
+  <p-header>List of Cars</p-header>
+  <p-footer>Choose from the list.</p-footer>
+  <p-column field="numSerie" header="No. Serie" [sortable]="true"></p-column>
+  <p-column field="year" header="Year" [sortable]="true"></p-column>
+  <p-column field="brand" header="Brand" [sortable]="true"></p-column>
+  <p-column field="color" header="Color" [sortable]="true"></p-column>
+  <p-column field="brand" header="Color2">
+    <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
+      <span>{{ri}} {{car[col.field]}}</span>
+    </ng-template>
+  </p-column>
+  <p-column>
+    <ng-template pTemplate="header">
+      <button type="button" pButton (click)="selectAllCars()" icon="fa-check"></button>
+    </ng-template>
+    <ng-template let-car="rowData" pTemplate="body">
+      <button type="button" pButton (click)="selectCar(car)" icon="fa-search"></button>
+    </ng-template>
+  </p-column>
 </p-dataTable>
+
+<p-dataTable [value]="listaAutos" sortField="brand" rowGroupMode="rowspan" [style]="{'margin-top':'50px'}">
+    <p-header>RowSpan</p-header>
+    <p-column field="brand" header="Brand" sortable="true"></p-column>
+    <p-column field="color" header="Color" sortable="true"></p-column>
+    <p-column field="year" header="Year" sortable="true"></p-column>
+    <p-column field="numSerie" header="Vin" sortable="true"></p-column>
+</p-dataTable>
+
+<p-dataTable [value]="listaAutos" sortField="brand" rowGroupMode="subheader" groupField="brand" [style]="{'margin-top':'50px'}">
+    <p-header>Subheader</p-header>
+    <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData['brand']}}</ng-template>
+    <p-column field="color" header="Color" sortable="true"></p-column>
+    <p-column field="year" header="Year" sortable="true"></p-column>
+    <p-column field="numSerie" header="Serie" sortable="true"></p-column>
+</p-dataTable>
+<hr/>
+<p-dataTable [value]="listaFases">
+    <p-header>FASES</p-header>
+    <p-column field="id" header="id" sortable="true"></p-column>
+    <p-column field="fase" header="fase" sortable="true"></p-column>
+</p-dataTable>
+<hr/>
+<div>
+    {{errorServicioMongo}}
+</div>

@@ -5,6 +5,8 @@ import {Store} from '@ngrx/store';
 import {INCREMENTAR_ACTION, DECREMENTAR_ACTION, RESETEAR_ACTION} from './services/counter';
 import {Observable} from 'rxjs/Observable';
 import {UsuariosService} from './services/usuarios.service';
+import {FaseService} from './services/fase.service';
+import {Fase} from './model/Fase';
 import {Router} from '@angular/router';
 import {Car} from './model/auto';
 
@@ -15,26 +17,40 @@ import {Car} from './model/auto';
 })
 
 export class AppComponent implements OnInit {
+  listaFases: Fase[];
   listaAutos: Car[];
   user: FormGroup;
   listaUsuarios: any;
   miContador: Observable<number>;
-
   listaUsuariosMongo: any;
   errorServicioMongo: any;
 
   constructor(
     private router: Router,
     private usService: UsuariosService,
+    private faService: FaseService,
     private fb: FormBuilder,
     private store: Store<number>,
     private zonaEspecial: NgZone) {
     this.miContador = store.select('contadorSTORE');
     this.listaUsuarios = usService.getUsuarios();
     this.obtenerUsuariosMongo();
+    //this.obtenerFasesService();
   }
 
   ngOnInit() {
+      this.obtenerFasesService();
+    this.listaAutos = [
+      { 'numSerie': '001', 'year': '1977', 'brand': 'vw', 'color': 'azul' },
+      { 'numSerie': '002', 'year': '1976', 'brand': 'audi', 'color': 'blanco' },
+      { 'numSerie': '003', 'year': '1978', 'brand': 'nissan', 'color': 'rojo' },
+      { 'numSerie': '004', 'year': '1975', 'brand': 'ford', 'color': 'blanco' },
+      { 'numSerie': '005', 'year': '1979', 'brand': 'vw', 'color': 'negro' },
+      { 'numSerie': '006', 'year': '1977', 'brand': 'ford', 'color': 'blanco' },
+      { 'numSerie': '007', 'year': '1975', 'brand': 'vw', 'color': 'verde' },
+      { 'numSerie': '008', 'year': '1977', 'brand': 'audi', 'color': 'negro' },
+      { 'numSerie': '009', 'year': '1977', 'brand': 'vw', 'color': 'negro' },
+      { 'numSerie': '010', 'year': '1979', 'brand': 'vw', 'color': 'negro' }];
     //this.listaAutos.push({'numSerie':'abc','year':'1977','brand':'vw','color':'azul'});
     this.user = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
@@ -43,6 +59,7 @@ export class AppComponent implements OnInit {
         confirm: ['', Validators.required]
       })
     });
+
   }
   onSubmit() {
     console.log(this.user.value);
@@ -123,4 +140,28 @@ export class AppComponent implements OnInit {
       );
   }
 
+  // obtenerFasesService(): void {
+  //     this.faService.getFases()
+  //     .then(
+  //         fase => this.listaFases = fase,
+  //         error=> this.errorServicioMongo =<any>error
+  //     );
+  // }
+
+  obtenerFasesService(): void {
+    this.faService.getFases()
+        .then(
+            fase => this.listaFases = <Fase[]>fase,
+            error=> this.errorServicioMongo =<any>error);
+  }
+
+  selectAllCars() {
+    console.log("Se deben habilitar todas las unidades");
+  }
+
+  selectCar(car: Car) {
+    console.log("se ha seleccionado el carro: " + car.numSerie);
+
+
+  }
 }

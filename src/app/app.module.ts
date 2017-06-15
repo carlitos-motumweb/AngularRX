@@ -18,6 +18,7 @@ import {ROUTER_PRINCIPAL} from './commons/router';
 import { DetalleComponent } from './detalle/detalle.component';
 
 import {UsuariosService} from './services/usuarios.service';
+import {FaseService} from './services/fase.service';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from '@angular/material';
@@ -47,7 +48,7 @@ import {DataTableModule,SharedModule} from 'primeng/primeng';
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [UsuariosService],
+  providers: [UsuariosService, FaseService],
   bootstrap: [InitComponent]
 })
 export class AppModule { }
